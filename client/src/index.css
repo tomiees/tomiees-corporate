@@ -1,0 +1,207 @@
+/*
+ * tomiees Corporate Site — Global Styles
+ * Design: "現像済みの封筒" — Film Envelope
+ * Base: Dark Navy (#1A3F66) | Accent: Yellow (#E8B43A)
+ * Fonts: Noto Serif JP (headings) / Noto Sans JP (body) / Space Mono (captions)
+ */
+
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Brand tokens */
+  --color-navy: oklch(0.28 0.07 240);
+  --color-navy-deep: oklch(0.22 0.07 240);
+  --color-yellow: oklch(0.77 0.16 80);
+  --color-cream: oklch(0.93 0.04 80);
+  --color-blue-muted: oklch(0.65 0.05 230);
+}
+
+:root {
+  --radius: 0.25rem;
+  --background: oklch(0.22 0.07 240);
+  --foreground: oklch(0.93 0.04 80);
+  --card: oklch(0.28 0.07 240);
+  --card-foreground: oklch(0.93 0.04 80);
+  --popover: oklch(0.28 0.07 240);
+  --popover-foreground: oklch(0.93 0.04 80);
+  --primary: oklch(0.77 0.16 80);
+  --primary-foreground: oklch(0.22 0.07 240);
+  --secondary: oklch(0.32 0.07 240);
+  --secondary-foreground: oklch(0.93 0.04 80);
+  --muted: oklch(0.32 0.06 240);
+  --muted-foreground: oklch(0.65 0.05 230);
+  --accent: oklch(0.77 0.16 80);
+  --accent-foreground: oklch(0.22 0.07 240);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.77 0.16 80 / 0.2);
+  --input: oklch(0.77 0.16 80 / 0.2);
+  --ring: oklch(0.77 0.16 80 / 0.5);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Noto Sans JP', sans-serif;
+    background-color: #1A3F66;
+    color: #F0E6CC;
+    position: relative;
+  }
+
+  /* Film grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 128px 128px;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Noto Serif JP', serif;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  a[href] {
+    @apply cursor-pointer;
+  }
+}
+
+@layer components {
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    max-width: 900px;
+  }
+
+  @media (min-width: 640px) {
+    .container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+    }
+  }
+
+  .flex {
+    min-height: 0;
+    min-width: 0;
+  }
+
+  /* Section label style */
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #E8B43A;
+    margin-bottom: 1rem;
+  }
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: #E8B43A;
+    flex-shrink: 0;
+  }
+
+  /* Fade-in animation for scroll reveal */
+  .fade-in-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .fade-in-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Yellow accent border left */
+  .border-accent-left {
+    border-left: 2px solid #E8B43A;
+    padding-left: 1.25rem;
+  }
+
+  /* Card style */
+  .film-card {
+    background-color: rgba(31, 72, 112, 0.6);
+    border: 1px solid rgba(232, 180, 58, 0.2);
+    padding: 1.5rem;
+    position: relative;
+  }
+
+  /* Badge */
+  .launch-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid rgba(232, 180, 58, 0.6);
+    color: #E8B43A;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    padding: 0.4rem 0.9rem;
+    animation: badge-pulse 3s ease-in-out infinite;
+  }
+  @keyframes badge-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+
+  /* Horizontal rule */
+  .film-rule {
+    border: none;
+    border-top: 1px solid rgba(232, 180, 58, 0.15);
+    margin: 0;
+  }
+}
