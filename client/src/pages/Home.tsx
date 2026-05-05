@@ -8,7 +8,7 @@
 
 import { useEffect, useRef } from "react";
 
-const CHEESY_LOGO = "/manus-storage/cheesy-logo_dbdf9b0a.png";
+const CHEESY_LOGO = "/cheesy-logo.png";
 
 // Scroll reveal hook
 function useScrollReveal() {
