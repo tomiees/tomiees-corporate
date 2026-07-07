@@ -132,7 +132,7 @@ const SECTIONS = [
 
 株式会社tomiees
 住所：〒150-0043 東京都渋谷区道玄坂1丁目10-8 渋谷道玄坂東急ビル2F-C
-お問い合わせ：support@cheesy.jp`,
+お問い合わせ：cheesy-support@tomiees.com`,
   },
 ];
 

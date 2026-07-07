@@ -186,7 +186,7 @@ export default function LegalLayout({
               </Link>
             )}
             <a
-              href="mailto:support@cheesy.jp"
+              href="mailto:cheesy-support@tomiees.com"
               style={{ color: "rgba(240,230,204,0.6)", textDecoration: "none" }}
             >
               Contact
