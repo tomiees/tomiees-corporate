@@ -10,6 +10,10 @@ import { useEffect, useRef } from "react";
 
 const CHEESY_LOGO = "/cheesy-logo.png";
 
+const APP_STORE_URL = "https://apps.apple.com/jp/app/id6784006772";
+const GOOGLE_PLAY_URL =
+  "https://play.google.com/store/apps/details?id=io.tomiees.cheesy.prod";
+
 // Scroll reveal hook
 function useScrollReveal() {
   useEffect(() => {
@@ -27,6 +31,65 @@ function useScrollReveal() {
     elements.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
+}
+
+// Store download buttons
+function StoreButtons({ size = "default" }: { size?: "default" | "small" }) {
+  const isSmall = size === "small";
+  const base: React.CSSProperties = {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "0.5rem",
+    fontFamily: "'Space Mono', monospace",
+    fontSize: isSmall ? "0.65rem" : "0.75rem",
+    letterSpacing: "0.08em",
+    padding: isSmall ? "0.45rem 0.9rem" : "0.7rem 1.4rem",
+    textDecoration: "none",
+    border: "1px solid rgba(232,180,58,0.6)",
+    transition: "background-color 0.2s, border-color 0.2s",
+  };
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        gap: "0.75rem",
+        flexWrap: "wrap",
+        justifyContent: "center",
+      }}
+    >
+      <a
+        href={APP_STORE_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ ...base, backgroundColor: "#E8B43A", color: "#1A3F66", fontWeight: 700 }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.backgroundColor = "#F0C455";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.backgroundColor = "#E8B43A";
+        }}
+      >
+        App Store
+      </a>
+      <a
+        href={GOOGLE_PLAY_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ ...base, color: "#E8B43A" }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.borderColor = "#E8B43A";
+          e.currentTarget.style.backgroundColor = "rgba(232,180,58,0.1)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.borderColor = "rgba(232,180,58,0.6)";
+          e.currentTarget.style.backgroundColor = "transparent";
+        }}
+      >
+        Google Play
+      </a>
+    </div>
+  );
 }
 
 export default function Home() {
@@ -152,12 +215,28 @@ export default function Home() {
           目の前の友達と、その瞬間を一緒に。"思い出の場所"を取り戻すSNS。
         </p>
 
-        {/* Launch badge */}
-        <div className="fade-in-up">
+        {/* Now available badge + store links */}
+        <div className="fade-in-up" style={{ marginBottom: "1.5rem" }}>
           <span className="launch-badge">
             <span style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: "#E8B43A", display: "inline-block" }} />
-            2026年内 リリース予定 &nbsp;/&nbsp; Launching in 2026
+            配信中 &nbsp;/&nbsp; Available now
           </span>
+        </div>
+
+        <div className="fade-in-up">
+          <StoreButtons />
+          <p
+            style={{
+              fontFamily: "'Space Mono', monospace",
+              fontSize: "0.65rem",
+              color: "rgba(240,230,204,0.5)",
+              letterSpacing: "0.05em",
+              marginTop: "1rem",
+              lineHeight: 1.7,
+            }}
+          >
+            現在は招待制ベータとして運用中 &nbsp;/&nbsp; Currently in invite-only beta
+          </p>
         </div>
       </section>
 
@@ -347,6 +426,13 @@ export default function Home() {
                 </p>
               </div>
             ))}
+          </div>
+
+          <div
+            className="fade-in-up"
+            style={{ marginTop: "2.5rem", textAlign: "center" }}
+          >
+            <StoreButtons />
           </div>
         </div>
       </section>
@@ -579,6 +665,8 @@ export default function Home() {
             alt="cheesy"
             style={{ width: "80px", height: "auto", opacity: 0.7 }}
           />
+
+          <StoreButtons size="small" />
 
           <p
             style={{
