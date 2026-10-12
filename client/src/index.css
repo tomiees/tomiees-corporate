@@ -838,21 +838,7 @@ button {
   overflow: hidden;
   border-radius: 14px;
 }
-/* 共通の状態表示: 小さな等幅チップ。3 枚で「27 → 12 → 0」と読める */
-.step-status {
-  margin-left: auto;
-  font-family: Menlo, "SF Mono", Consolas, monospace;
-  font-size: 0.75rem;
-  letter-spacing: 0.04em;
-  padding: 3px 8px;
-  border: 1px solid var(--ink);
-  border-radius: 6px;
-  background: var(--white);
-  font-variant-numeric: tabular-nums;
-}
 .step-n {
-  display: flex;
-  align-items: center;
   font-size: 1.1rem;
   color: var(--acc);
 }
@@ -897,20 +883,12 @@ button {
   position: absolute;
   inset: 0;
 }
-.vis-create .vis-sheet {
-  position: absolute;
-  left: 3%;
-  bottom: 4%;
-  width: 50%;
-  transform: rotate(-6deg);
-  opacity: 0.95;
-}
 .vis-create .vis-cam {
   position: absolute;
-  right: 4%;
-  bottom: 8%;
-  width: 44%;
-  transform: rotate(6deg);
+  right: 3%;
+  bottom: 6%;
+  width: 66%;
+  transform: rotate(4deg);
   filter: drop-shadow(0 8px 10px rgba(30, 30, 30, 0.2));
 }
 .vis-tags {
@@ -1006,7 +984,7 @@ button {
   border-radius: 50%;
   overflow: hidden;
   border: 3px solid var(--ink);
-  background: url("/brand/camera-yellow.webp") 96% 86% / 440% auto no-repeat;
+  background: url("/brand/camera-yellow.webp") 91.7% 87.3% / 440% auto no-repeat;
   box-shadow: 0 10px 18px rgba(30, 30, 30, 0.22);
 }
 .vis-window-num {
@@ -1033,45 +1011,7 @@ button {
   transform: translateX(-50%) rotate(-2deg);
   filter: drop-shadow(0 10px 14px rgba(30, 30, 30, 0.22));
 }
-.vis-print {
-  position: absolute;
-  bottom: 44%;
-  left: 50%;
-  width: 26%;
-  aspect-ratio: 3 / 4;
-  background: var(--white);
-  padding: 4%;
-  box-shadow: 0 6px 10px rgba(30, 30, 30, 0.18);
-  transform-origin: 50% 120%;
-}
-.vis-print::before {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(160deg, #ffc943, #ff75b7);
-}
-.vis-print.p1 {
-  transform: translateX(-50%) rotate(-28deg);
-}
-.vis-print.p2 {
-  transform: translateX(-50%) rotate(-9deg);
-}
-.vis-print.p2::before {
-  background: linear-gradient(200deg, #8fd6c0, #ffc943);
-}
-.vis-print.p3 {
-  transform: translateX(-50%) rotate(9deg);
-}
-.vis-print.p3::before {
-  background: linear-gradient(140deg, #f7b2cf, #a97be0);
-}
-.vis-print.p4 {
-  transform: translateX(-50%) rotate(28deg);
-}
-.vis-print.p4::before {
-  background: linear-gradient(120deg, #3aa0e0, #8fd6c0);
-}
+
 
 /* ---------- トップ: 大事にしていること ---------- */
 .why {
@@ -1087,7 +1027,7 @@ button {
   .why-in {
     grid-template-columns: 1fr 1.3fr;
     gap: 56px;
-    align-items: start;
+    align-items: center;
   }
 }
 .why-head {

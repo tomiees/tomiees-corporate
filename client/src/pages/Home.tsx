@@ -145,8 +145,8 @@ function StepVisual({ kind }: { kind: "create" | "shoot" | "arrive" }) {
   if (kind === "create") {
     return (
       <div className="vis vis-create" aria-hidden="true">
-        <img className="vis-sheet" src="/brand/sticker-sheet.webp" alt="" width={520} height={305} loading="lazy" decoding="async" />
-        <img className="vis-cam" src="/brand/camera-pink.webp" alt="" width={1100} height={644} loading="lazy" decoding="async" />
+        {/* アプリと同じ重ね順で、シールを貼ったカメラ（シールが浮いて見えないように本体に貼る） */}
+        <img className="vis-cam" src="/brand/camera-pink-stickers.webp" alt="" width={900} height={527} loading="lazy" decoding="async" />
         <ul className="vis-tags">
           <li className="hand">27まい</li>
           <li className="hand">現像日 10/20</li>
@@ -172,10 +172,6 @@ function StepVisual({ kind }: { kind: "create" | "shoot" | "arrive" }) {
   }
   return (
     <div className="vis vis-arrive" aria-hidden="true">
-      <span className="vis-print p1" />
-      <span className="vis-print p2" />
-      <span className="vis-print p3" />
-      <span className="vis-print p4" />
       <img className="vis-env" src="/brand/envelope.webp" alt="" width={900} height={606} loading="lazy" decoding="async" />
     </div>
   );
@@ -187,21 +183,18 @@ const STEPS = [
     kind: "create" as const,
     title: "カメラをつくる",
     body: "枚数と現像日をきめて、友だちをさそう。",
-    status: "のこり 27",
   },
   {
     n: "02",
     kind: "shoot" as const,
     title: "みんなで撮る",
     body: "撮った写真はまだ見えない。カウンターだけが減っていく。",
-    status: "のこり 12",
   },
   {
     n: "03",
     kind: "arrive" as const,
     title: "封筒がとどく",
     body: "撮りきったら現像。みんなのアルバムに。",
-    status: "0 → 現像！",
   },
 ];
 
@@ -252,10 +245,7 @@ export default function Home() {
                 <div className="step-pic">
                   <StepVisual kind={s.kind} />
                 </div>
-                <p className="step-n">
-                  <span className="display">{s.n}</span>
-                  <span className="step-status">{s.status}</span>
-                </p>
+                <p className="step-n display">{s.n}</p>
                 <h3 className="step-title">
                   <span className="step-icon">{STEP_ICONS[s.kind]}</span>
                   {s.title}
