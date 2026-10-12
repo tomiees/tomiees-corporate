@@ -50,7 +50,7 @@ function CameraToy() {
           disabled={done}
         >
           <img
-            src="/brand/camera-yellow.webp"
+            src="/brand/camera-hero.webp"
             alt=""
             width={1100}
             height={644}
@@ -145,8 +145,8 @@ function StepVisual({ kind }: { kind: "create" | "shoot" | "arrive" }) {
   if (kind === "create") {
     return (
       <div className="vis vis-create" aria-hidden="true">
-        {/* アプリと同じ重ね順で、シールを貼ったカメラ（シールが浮いて見えないように本体に貼る） */}
-        <img className="vis-cam" src="/brand/camera-pink-stickers.webp" alt="" width={900} height={527} loading="lazy" decoding="async" />
+        {/* アプリと同じ重ね順で、ぷっくり3Dシールを貼った青のスケルトンカメラ */}
+        <img className="vis-cam" src="/brand/camera-create.webp" alt="" width={900} height={508} loading="lazy" decoding="async" />
         <ul className="vis-tags">
           <li className="hand">27まい</li>
           <li className="hand">現像日 10/20</li>

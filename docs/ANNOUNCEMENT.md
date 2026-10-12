@@ -53,3 +53,10 @@ Cache-Control: max-age=60
 - 閉じるボタンは「お知らせを閉じる」。`id` を端末に記録して同じお知らせは再表示しない
   （`incident` は例外で毎回出す）
 - 読み込みはページ表示時と、タブに戻ってきたとき（`visibilitychange`）
+
+## 見た目を確かめたいとき
+
+お知らせが無いときは帯は出ない。見本を出すには URL の末尾に付ける:
+
+- `https://tomiees.com/?ann=preview` … 黄色のお知らせ
+- `https://tomiees.com/?ann=incident` … ピンクの障害

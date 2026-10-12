@@ -64,7 +64,23 @@ async function fetchJson(url: string): Promise<unknown> {
   return text.trim() ? JSON.parse(text) : null;
 }
 
+/** 見た目の確認用: URL に ?ann=preview（障害は ?ann=incident）を付けると見本を出す。 */
+function previewItem(): Item | null {
+  const mode = new URLSearchParams(window.location.search).get("ann");
+  if (!mode) return null;
+  const incident = mode === "incident";
+  return {
+    id: `preview-${mode}`,
+    level: incident ? "incident" : "info",
+    title: incident ? "現在、写真の読み込みに時間がかかっています" : "10/20 23:00〜24:00 にメンテナンスを行います",
+    body: incident ? "復旧作業中です。アプリを閉じずにお待ちください。" : "この時間はアプリが使えないことがあります。",
+    url: "/",
+  };
+}
+
 async function load(): Promise<Item | null> {
+  const preview = previewItem();
+  if (preview) return preview;
   for (const url of [API_URL, FALLBACK_URL]) {
     try {
       const item = normalize(await fetchJson(url));
