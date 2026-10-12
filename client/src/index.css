@@ -589,41 +589,79 @@ button {
     opacity: 0;
   }
 }
-.toy-label {
-  position: absolute;
-  left: 2%;
-  bottom: -6px;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35em;
-  padding: 6px 12px;
-  background: var(--white);
-  border: 2px solid var(--ink);
-  border-radius: 12px;
-  transform: rotate(3deg);
-  font-size: 1.05rem;
-  box-shadow: 3px 3px 0 var(--ink);
+/* カウンター窓の中の数字。窓の位置はアプリの実測値（中心 x 82.2% / y 72.8%・高さ 10.1%） */
+.toy-cam {
+  container-type: inline-size;
 }
-.toy-label .led {
-  font-size: 1.3rem;
+.toy-count {
+  position: absolute;
+  left: 82.2%;
+  top: 72.8%;
+  transform: translate(-50%, -50%);
+  font-family: Menlo, "SF Mono", Consolas, monospace;
+  font-weight: 900;
+  font-size: 4.6cqw;
+  line-height: 1;
+  color: #1c1715;
+  letter-spacing: -0.02em;
   animation: bump 0.3s var(--ease-pop);
 }
 @keyframes bump {
   from {
-    transform: scale(1.25);
+    transform: translate(-50%, -50%) scale(1.3);
   }
   to {
-    transform: scale(1);
+    transform: translate(-50%, -50%) scale(1);
   }
 }
-.toy-tape {
+/* 窓を指す吹き出し */
+.toy-bubble {
   position: absolute;
-  width: 34%;
-  left: 2%;
-  top: -3%;
-  transform: rotate(-12deg);
-  pointer-events: none;
-  opacity: 0.95;
+  right: 3%;
+  top: 40%;
+  pointer-events: none; /* カメラのタップを邪魔しない */
+  padding: 6px 14px;
+  background: var(--white);
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  font-size: 1.1rem;
+  white-space: nowrap;
+  box-shadow: 3px 3px 0 var(--ink);
+  transform: rotate(4deg);
+}
+.toy-bubble b {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.25em;
+  color: var(--pink);
+  margin: 0 0.1em;
+}
+.toy-bubble::before,
+.toy-bubble::after {
+  content: "";
+  position: absolute;
+  right: 26px;
+  bottom: -16px;
+  border: 8px solid transparent;
+  border-top: 11px solid var(--ink);
+  border-bottom: 0;
+  transform: skewX(18deg);
+}
+.toy-bubble::after {
+  bottom: -11px;
+  border-top-color: var(--white);
+}
+.hero-art:has(.toy.is-done) .hero-hint {
+  opacity: 0;
+}
+@media (max-width: 859px) {
+  /* スマホはカメラが小さいので、吹き出しも小さく・上に。窓を隠さない */
+  .toy-bubble {
+    top: 24%;
+    right: 2%;
+    font-size: 0.92rem;
+    padding: 4px 11px;
+  }
 }
 .toy-env {
   position: absolute;
@@ -659,8 +697,8 @@ button {
   opacity: 0.25;
   filter: grayscale(0.4);
 }
-.toy.is-done .toy-label,
-.toy.is-done .toy-tape {
+.toy.is-done .toy-bubble,
+.toy.is-done .toy-count {
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -720,7 +758,7 @@ button {
   pointer-events: none;
 }
 .step-pic {
-  height: 150px;
+  height: 170px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -764,6 +802,7 @@ button {
 .why-head {
   position: relative;
 }
+/* 見出しの右上から「大事にしていること」を指す吹き出し */
 .dood-bubble {
   width: clamp(80px, 12vw, 130px);
   right: 0;
@@ -771,10 +810,13 @@ button {
   --r: 8deg;
 }
 @media (min-width: 860px) {
+  .why-head .h2 {
+    display: inline-flex;
+  }
   .dood-bubble {
-    right: -10px;
-    top: auto;
-    bottom: -120px;
+    right: auto;
+    left: calc(100% - 150px);
+    top: -48px;
   }
 }
 .why-list {

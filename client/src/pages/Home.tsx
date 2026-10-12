@@ -39,25 +39,23 @@ function CameraToy() {
         disabled={done}
       >
         <img
-          src="/brand/camera-pink.webp"
+          src="/brand/camera-yellow.webp"
           alt=""
           width={1100}
-          height={642}
+          height={644}
           fetchPriority="high"
           decoding="async"
         />
-        <span key={flash} className={flash ? "toy-flash" : ""} aria-hidden="true" />
+        {/* 残り枚数はアプリと同じく、カメラのカウンター窓の中に出す */}
+        <span key={`n${bump}`} className="toy-count" aria-hidden="true">
+          {left}
+        </span>
+        <span key={`f${flash}`} className={flash ? "toy-flash" : ""} aria-hidden="true" />
       </button>
 
-      <div className="toy-label" aria-live="polite">
-        <span className="hand">のこり</span>
-        <span key={bump} className="led">
-          {String(left).padStart(2, "0")}
-        </span>
-        <span className="hand">まい</span>
-      </div>
-
-      <img className="toy-tape" src="/brand/tape-yellow.webp" alt="" width={600} height={206} aria-hidden="true" />
+      <p className="toy-bubble hand" aria-live="polite">
+        のこり <b>{left}</b> まい
+      </p>
 
       <div className="toy-env" aria-hidden={!done}>
         <img src="/brand/envelope.webp" alt="" width={900} height={606} />
@@ -75,17 +73,17 @@ const STEPS = [
     n: "01",
     title: "カメラをつくる",
     body: "「何枚撮る？」「いつ現像する？」を決めて、仲間を招待。",
-    img: "/brand/camera-yellow.webp",
-    w: 700,
-    h: 409,
+    img: "/brand/camera-pink.webp",
+    w: 1100,
+    h: 644,
   },
   {
     n: "02",
     title: "みんなで撮る",
     body: "撮ったら残り枚数が減るだけ。中身は、まだだれにも見えません。",
-    img: "/brand/sticker-retropop.webp",
-    w: 520,
-    h: 305,
+    img: "/brand/camera-clear.webp",
+    w: 1100,
+    h: 621,
   },
   {
     n: "03",
