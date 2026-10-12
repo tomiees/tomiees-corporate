@@ -12,7 +12,7 @@ const COMPANY = [
   ["代表者", "古屋玲羅（Lyra Furuya, CEO）/ 木下春来（Shunki Kinoshita, COO）"],
   [
     "所在地",
-    "〒150-0043 東京都渋谷区道玄坂1-10-8 渋谷道玄坂ビル2F-C\nShibuya Dogenzaka Bldg. 2F-C, 1-10-8 Dogenzaka, Shibuya-ku, Tokyo 150-0043, Japan",
+    "〒150-0043 東京都渋谷区道玄坂1丁目10番8号 渋谷道玄坂東急ビル2F-C\nShibuya Dogenzaka Tokyu Bldg. 2F-C, 1-10-8 Dogenzaka, Shibuya-ku, Tokyo 150-0043, Japan",
   ],
   ["事業内容", "モバイルアプリ・SNSサービスの企画開発運営"],
 ] as const;
