@@ -1,0 +1,36 @@
+{
+  "siteName": "cheesy",
+  "origin": "https://tomiees.com",
+  "appStoreId": "6784006772",
+  "appStoreUrl": "https://apps.apple.com/jp/app/id6784006772",
+  "googlePlayUrl": "https://play.google.com/store/apps/details?id=io.tomiees.cheesy.prod&hl=ja",
+  "contactEmail": "info@tomiees.com",
+  "supportEmail": "cheesy-support@tomiees.com",
+  "routes": {
+    "/": {
+      "title": "cheesy｜撮り切るまで、見られない。",
+      "description": "友だちと1台のカメラを分け合う、使い捨てカメラみたいな写真アプリ。みんなで撮り切ると現像されて、封筒で届きます。iOS / Android 無料。",
+      "image": "/og.png"
+    },
+    "/company": {
+      "title": "会社情報｜株式会社tomiees",
+      "description": "株式会社tomiees（tomiees Inc.）の会社情報。思い出を語り直すことで、今この瞬間を幸せだと感じられる場所を提供する。モバイルアプリ・SNSサービスの企画開発運営。",
+      "image": "/og.png"
+    },
+    "/cheesy/terms": {
+      "title": "利用規約｜cheesy",
+      "description": "cheesy（チージー）の利用規約。運営：株式会社tomiees。",
+      "image": "/og.png"
+    },
+    "/cheesy/privacy": {
+      "title": "プライバシーポリシー｜cheesy",
+      "description": "cheesy（チージー）のプライバシーポリシー。運営：株式会社tomiees。",
+      "image": "/og.png"
+    },
+    "/dl": {
+      "title": "cheesy をダウンロード",
+      "description": "cheesy を App Store / Google Play で入手。",
+      "image": "/og.png"
+    }
+  }
+}
