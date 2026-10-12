@@ -514,14 +514,6 @@ button {
   position: relative;
   padding: 24px 8px;
 }
-.hero-hint {
-  position: absolute;
-  right: 4%;
-  bottom: -2px;
-  font-size: 1.05rem;
-  color: var(--ink-soft);
-  transform: rotate(-6deg);
-}
 .dood-stars {
   width: clamp(70px, 12vw, 130px);
   left: -2%;
@@ -543,11 +535,15 @@ button {
   animation-delay: -4s;
 }
 
-/* カメラのおもちゃ */
+/* カメラのおもちゃ（見せ方の決まりは Home.tsx の CameraToy 冒頭） */
 .toy {
   position: relative;
   margin: 0 auto;
   width: min(100%, 560px);
+  padding-bottom: 72px; /* 下に伸びる線とラベルのぶん */
+}
+.toy-stage {
+  position: relative;
 }
 .toy-cam {
   position: relative;
@@ -557,112 +553,167 @@ button {
   border: 0;
   background: none;
   cursor: pointer;
-  transform: rotate(-4deg);
-  transition: transform 0.25s var(--ease-pop);
+  container-type: inline-size;
+  transition: transform 0.12s ease-out;
   filter: drop-shadow(0 18px 24px rgba(30, 30, 30, 0.22));
 }
-.toy-cam:hover {
-  transform: rotate(-3deg) scale(1.02);
-}
 .toy-cam:active {
-  transform: rotate(-4deg) scale(0.98);
+  transform: scale(0.98);
+  transition-duration: 0.08s;
 }
 .toy-cam:disabled {
   cursor: default;
 }
+/* シャッターの一瞬の光（60ms で消える） */
 .toy-flash {
   position: absolute;
-  inset: -6%;
-  border-radius: 50%;
-  background: radial-gradient(circle, #fff 0%, rgba(255, 255, 255, 0.9) 35%, rgba(255, 255, 255, 0) 70%);
+  inset: 0;
+  background: #fff;
+  opacity: 0;
   pointer-events: none;
-  animation: flash 0.45s ease-out forwards;
+  animation: flash 0.16s ease-out forwards;
 }
 @keyframes flash {
   0% {
     opacity: 0;
   }
-  10% {
-    opacity: 1;
+  25% {
+    opacity: 0.7;
   }
   100% {
     opacity: 0;
   }
 }
-/* カウンター窓の中の数字。窓の位置はアプリの実測値（中心 x 82.2% / y 72.8%・高さ 10.1%） */
-.toy-cam {
-  container-type: inline-size;
-}
+/* カウンター窓の数字。窓の位置はアプリの実測値（中心 x 82.2% / y 72.8%・高さ 10.1%） */
 .toy-count {
   position: absolute;
   left: 82.2%;
   top: 72.8%;
+  width: 12cqw;
+  height: 7cqw;
   transform: translate(-50%, -50%);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.toy-digit {
   font-family: Menlo, "SF Mono", Consolas, monospace;
   font-weight: 900;
   font-size: 4.6cqw;
   line-height: 1;
   color: #1c1715;
   letter-spacing: -0.02em;
-  animation: bump 0.3s var(--ease-pop);
+  font-variant-numeric: tabular-nums;
+  animation: roll 0.18s ease-out;
 }
-@keyframes bump {
+@keyframes roll {
   from {
-    transform: translate(-50%, -50%) scale(1.3);
+    transform: translateY(70%);
+    opacity: 0;
   }
   to {
-    transform: translate(-50%, -50%) scale(1);
+    transform: none;
+    opacity: 1;
   }
 }
-/* 窓を指す吹き出し */
-.toy-bubble {
+/* 窓の下辺から、まっすぐ下へ 1px の線。先端に小さな点 */
+.toy-lead {
   position: absolute;
-  right: 3%;
-  top: 40%;
-  pointer-events: none; /* カメラのタップを邪魔しない */
-  padding: 6px 14px;
-  background: var(--white);
-  border: 2px solid var(--ink);
-  border-radius: 999px;
-  font-size: 1.1rem;
-  white-space: nowrap;
-  box-shadow: 3px 3px 0 var(--ink);
-  transform: rotate(4deg);
+  left: 82.2%;
+  top: 78%;
+  bottom: -22px;
+  width: 1px;
+  background: rgba(30, 30, 30, 0.9);
+  pointer-events: none;
 }
-.toy-bubble b {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: 1.25em;
-  color: var(--pink);
-  margin: 0 0.1em;
-}
-.toy-bubble::before,
-.toy-bubble::after {
+.toy-lead::before {
   content: "";
   position: absolute;
-  right: 26px;
-  bottom: -16px;
-  border: 8px solid transparent;
-  border-top: 11px solid var(--ink);
-  border-bottom: 0;
-  transform: skewX(18deg);
+  left: -2px;
+  top: -2px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ink);
 }
-.toy-bubble::after {
-  bottom: -11px;
-  border-top-color: var(--white);
+/* 線の先の小さなラベル。右端を線に揃える */
+.toy-spec {
+  position: absolute;
+  top: 100%;
+  margin-top: 26px;
+  right: 17.8%;
+  text-align: right;
+  line-height: 1.3;
+  white-space: nowrap;
 }
-.hero-art:has(.toy.is-done) .hero-hint {
+.toy-spec-eyebrow {
+  display: block;
+  font-family: Menlo, "SF Mono", Consolas, monospace;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(30, 30, 30, 0.7);
+}
+.toy-spec-main {
+  display: block;
+  font-size: 0.95rem;
+}
+.toy-spec-main b {
+  font-size: 1.4rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  margin: 0 0.1em;
+}
+.toy-spec-main a {
+  color: var(--pink);
+  font-weight: 700;
+  text-decoration: none;
+}
+/* 27 コマのフィルム。撮ったぶんがピンクに */
+.toy-strip {
+  position: absolute;
+  top: 100%;
+  margin-top: 26px;
+  left: 3%;
+  width: 52%;
+  display: flex;
+  gap: 2px;
+}
+.toy-strip li {
+  flex: 1;
+  height: 9px;
+  border: 1px solid rgba(30, 30, 30, 0.55);
+  border-radius: 1px;
+  background: transparent;
+  transition: background 0.15s ease;
+}
+.toy-strip li.used {
+  background: var(--pink);
+  border-color: var(--pink);
+}
+/* 手描きの「おしてみて」。紙の余白からカメラへ矢印。最初のタップで消える */
+.toy-hint {
+  position: absolute;
+  right: -1%;
+  top: -13%;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-start;
+  gap: 2px;
+  font-size: 1.25rem;
+  color: var(--ink);
+  transform: rotate(4deg);
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.toy-hint svg {
+  margin-top: 1.1em;
+}
+.toy.is-touched .toy-hint {
   opacity: 0;
 }
-@media (max-width: 859px) {
-  /* スマホはカメラが小さいので、吹き出しも小さく・上に。窓を隠さない */
-  .toy-bubble {
-    top: 24%;
-    right: 2%;
-    font-size: 0.92rem;
-    padding: 4px 11px;
-  }
-}
+/* 撮り切ったら封筒が右からすべり込む */
 .toy-env {
   position: absolute;
   inset: 0;
@@ -670,37 +721,32 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(24px) scale(0.9);
+  transform: translateX(40px);
   transition:
-    opacity 0.4s ease,
-    transform 0.5s var(--ease-pop),
-    visibility 0s linear 0.4s;
+    opacity 0.3s ease,
+    transform 0.3s ease-out,
+    visibility 0s linear 0.3s;
   pointer-events: none;
 }
 .toy-env img {
-  width: 68%;
+  width: 66%;
   filter: drop-shadow(0 16px 22px rgba(30, 30, 30, 0.25));
 }
-.toy-env-text {
-  font-size: 1.5rem;
-  color: var(--pink);
-  text-shadow: 0 0 0 transparent;
-  background: var(--white);
-  padding: 2px 12px;
-  border-radius: 10px;
-  transform: rotate(-3deg);
+.toy-reset {
+  border: 0;
+  background: none;
+  font-size: 1.1rem;
+  color: var(--ink-soft);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
 }
 .toy.is-done .toy-cam {
-  opacity: 0.25;
-  filter: grayscale(0.4);
-}
-.toy.is-done .toy-bubble,
-.toy.is-done .toy-count {
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  opacity: 0.22;
+  filter: grayscale(0.5);
 }
 .toy.is-done .toy-env {
   opacity: 1;
@@ -708,6 +754,26 @@ button {
   transform: none;
   pointer-events: auto;
   transition-delay: 0s;
+}
+@media (max-width: 859px) {
+  .toy {
+    padding-bottom: 64px;
+  }
+  .toy-hint {
+    font-size: 1.05rem;
+    top: -16%;
+  }
+  .toy-hint svg {
+    width: 48px;
+    height: 36px;
+  }
+  .toy-spec,
+  .toy-strip {
+    margin-top: 20px;
+  }
+  .toy-lead {
+    bottom: -16px;
+  }
 }
 
 /* ---------- トップ: あそびかた ---------- */
@@ -722,64 +788,289 @@ button {
 }
 .steps {
   display: grid;
-  gap: 28px;
-  counter-reset: step;
+  gap: 36px;
 }
 @media (min-width: 760px) {
   .steps {
     grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    gap: 32px;
   }
 }
+/* ステップごとの差し色: ① 黄 ② ピンク ③ 墨 */
 .step {
   position: relative;
+  --acc: var(--yellow);
   background: var(--paper);
   border: 2px solid var(--ink);
   border-radius: var(--radius);
-  padding: 28px 22px 24px;
+  padding: 18px 22px 24px;
   box-shadow: 6px 6px 0 var(--ink);
-  transform: rotate(var(--tilt, 0deg));
 }
-.step:nth-child(1) {
-  --tilt: -1.2deg;
+.step-shoot {
+  --acc: var(--pink);
 }
-.step:nth-child(2) {
-  --tilt: 0.8deg;
+.step-arrive {
+  --acc: var(--ink);
 }
-.step:nth-child(3) {
-  --tilt: -0.6deg;
-}
-.step-tape {
+/* カード同士をつなぐ点線（PC は横、スマホは縦） */
+.step + .step::before {
+  content: "";
   position: absolute;
-  width: 38%;
   left: 50%;
-  top: -16px;
-  transform: translateX(-50%) rotate(-3deg);
-  pointer-events: none;
+  top: -36px;
+  height: 36px;
+  border-left: 2px dotted var(--ink);
+}
+@media (min-width: 760px) {
+  .step + .step::before {
+    left: -34px;
+    top: 38%;
+    width: 34px;
+    height: 0;
+    border-left: 0;
+    border-top: 2px dotted var(--ink);
+  }
 }
 .step-pic {
-  height: 170px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 12px;
+  position: relative;
+  aspect-ratio: 4 / 3;
+  margin-bottom: 14px;
+  overflow: hidden;
+  border-radius: 14px;
 }
-.step-pic img {
-  max-height: 100%;
-  width: auto;
-  filter: drop-shadow(0 10px 12px rgba(30, 30, 30, 0.18));
+/* 共通の状態表示: 小さな等幅チップ。3 枚で「27 → 12 → 0」と読める */
+.step-status {
+  margin-left: auto;
+  font-family: Menlo, "SF Mono", Consolas, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  padding: 3px 8px;
+  border: 1px solid var(--ink);
+  border-radius: 6px;
+  background: var(--white);
+  font-variant-numeric: tabular-nums;
 }
 .step-n {
-  font-size: 1.3rem;
-  color: var(--pink);
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  color: var(--acc);
+}
+.step-arrive .step-n {
+  color: var(--ink);
 }
 .step-title {
-  font-size: 1.35rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.3rem;
   margin: 0.1rem 0 0.4rem;
+}
+.step-icon {
+  display: inline-flex;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--acc);
+  align-items: center;
+  justify-content: center;
+}
+.step-icon svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.step-arrive .step-icon svg {
+  stroke: var(--white);
 }
 .step-body {
   color: var(--ink-soft);
   font-size: 0.98rem;
+}
+
+/* ① つくる: シールシート + 設定タグ + 小さなカメラ */
+.vis {
+  position: absolute;
+  inset: 0;
+}
+.vis-create .vis-sheet {
+  position: absolute;
+  left: 3%;
+  bottom: 4%;
+  width: 50%;
+  transform: rotate(-6deg);
+  opacity: 0.95;
+}
+.vis-create .vis-cam {
+  position: absolute;
+  right: 4%;
+  bottom: 8%;
+  width: 44%;
+  transform: rotate(6deg);
+  filter: drop-shadow(0 8px 10px rgba(30, 30, 30, 0.2));
+}
+.vis-tags {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+.vis-tags li {
+  font-size: 1rem;
+  padding: 2px 10px;
+  background: var(--white);
+  border: 1.5px solid var(--ink);
+  border-radius: 6px;
+  transform: rotate(-2deg);
+}
+.vis-tags li:nth-child(2) {
+  transform: rotate(1.5deg);
+  background: var(--yellow);
+}
+.vis-tags li:nth-child(3) {
+  transform: rotate(-1deg);
+}
+
+/* ② とる: ぼやけた写真 3 枚 + カウンター窓の拡大（27 → 12） */
+.vis-shoot {
+  background: #f4efe6;
+}
+.vis-frames {
+  position: absolute;
+  left: 6%;
+  top: 10%;
+  width: 48%;
+  height: 80%;
+}
+.vis-frame {
+  position: absolute;
+  width: 58%;
+  aspect-ratio: 3 / 4;
+  background: var(--white);
+  padding: 6%;
+  box-shadow: 0 6px 12px rgba(30, 30, 30, 0.18);
+}
+.vis-frame::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter: blur(6px);
+  background: linear-gradient(160deg, #f7b2cf, #ffc943 55%, #8fd6c0);
+}
+.vis-frame.f1 {
+  left: 0;
+  top: 6%;
+  transform: rotate(-8deg);
+}
+.vis-frame.f2 {
+  left: 30%;
+  top: 0;
+  transform: rotate(5deg);
+}
+.vis-frame.f2::before {
+  background: linear-gradient(200deg, #8fd6c0, #f7b2cf 60%, #ffc943);
+}
+.vis-frame.f3 {
+  left: 14%;
+  top: 34%;
+  transform: rotate(-2deg);
+}
+.vis-frame.f3::before {
+  background: linear-gradient(120deg, #ffc943, #ff75b7 60%, #a97be0);
+}
+.vis-note {
+  position: absolute;
+  left: 4%;
+  bottom: -2%;
+  font-size: 1.05rem;
+  color: var(--ink);
+  background: var(--white);
+  padding: 0 8px;
+  transform: rotate(-4deg);
+}
+/* 黄色いカメラのカウンター窓だけを拡大して見せる（窓の中心 82.2% / 72.8%） */
+.vis-window {
+  position: absolute;
+  right: 6%;
+  top: 14%;
+  width: 46%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--ink);
+  background: url("/brand/camera-yellow.webp") 96% 86% / 440% auto no-repeat;
+  box-shadow: 0 10px 18px rgba(30, 30, 30, 0.22);
+}
+.vis-window-num {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-family: Menlo, "SF Mono", Consolas, monospace;
+  font-weight: 900;
+  font-size: 1.9rem;
+  color: #1c1715;
+  letter-spacing: -0.02em;
+}
+
+/* ③ とどく: 封筒から写真があふれる（写真が見えるのはこのステップだけ） */
+.vis-arrive {
+  background: #fbe3ee;
+}
+.vis-env {
+  position: absolute;
+  left: 50%;
+  bottom: -6%;
+  width: 78%;
+  transform: translateX(-50%) rotate(-2deg);
+  filter: drop-shadow(0 10px 14px rgba(30, 30, 30, 0.22));
+}
+.vis-print {
+  position: absolute;
+  bottom: 44%;
+  left: 50%;
+  width: 26%;
+  aspect-ratio: 3 / 4;
+  background: var(--white);
+  padding: 4%;
+  box-shadow: 0 6px 10px rgba(30, 30, 30, 0.18);
+  transform-origin: 50% 120%;
+}
+.vis-print::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(160deg, #ffc943, #ff75b7);
+}
+.vis-print.p1 {
+  transform: translateX(-50%) rotate(-28deg);
+}
+.vis-print.p2 {
+  transform: translateX(-50%) rotate(-9deg);
+}
+.vis-print.p2::before {
+  background: linear-gradient(200deg, #8fd6c0, #ffc943);
+}
+.vis-print.p3 {
+  transform: translateX(-50%) rotate(9deg);
+}
+.vis-print.p3::before {
+  background: linear-gradient(140deg, #f7b2cf, #a97be0);
+}
+.vis-print.p4 {
+  transform: translateX(-50%) rotate(28deg);
+}
+.vis-print.p4::before {
+  background: linear-gradient(120deg, #3aa0e0, #8fd6c0);
 }
 
 /* ---------- トップ: 大事にしていること ---------- */
@@ -1010,7 +1301,8 @@ button {
     scroll-behavior: auto;
   }
   .dood,
-  .toy-label .led {
+  .toy-digit,
+  .toy-flash {
     animation: none;
   }
   [data-reveal] {
