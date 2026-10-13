@@ -28,10 +28,7 @@ export default function Company() {
           <p>tomiees は、思い出を語り直すことで、今この瞬間を幸せだと感じられる場所を提供する。</p>
           <p className="quote-en">“tomiees creates spaces where re-telling memories makes the present feel like happiness.”</p>
         </blockquote>
-        <p className="lead">
-          大切な数人と濃く繋がる体験を、誰もが自然に持てるサービスをつくります。
-          “いいね”の数より、お互いの主観の往復のほうが、人を満たすと信じています。
-        </p>
+        <p className="lead">大切な数人と濃く繋がる体験を、誰もが自然に持てるサービスをつくります。“いいね”の数より、お互いの主観の往復のほうが、人を満たすと信じています。</p>
       </section>
 
       <section className="wrap" data-reveal>

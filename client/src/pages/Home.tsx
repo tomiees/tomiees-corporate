@@ -218,10 +218,8 @@ export default function Home() {
               <br />
               見られない。
             </h1>
-            <p className="lead">
-              枚数にかぎりがある、使い捨てカメラみたいな写真アプリ。
-              みんなで撮り切ると現像されて、封筒で届きます。
-            </p>
+            {/* JSX の行またぎは半角スペースになるので、文は 1 行に書く */}
+            <p className="lead">枚数にかぎりがある、使い捨てカメラみたいな写真アプリ。みんなで撮り切ると現像されて、封筒で届きます。</p>
             <StoreBadges size="lg" />
             <p className="note">無料 ・ iOS / Android</p>
           </div>

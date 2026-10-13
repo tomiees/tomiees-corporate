@@ -134,6 +134,20 @@ button {
   color: var(--ink-soft);
   max-width: 34em;
 }
+/* 日本語の改行: 単語（文節）の途中で折り返さない。対応ブラウザ（Chrome 119+ 等）だけ効き、
+   ほかは従来どおり。見出し・リード・短い本文に掛ける。長文の規約には掛けない */
+.lead,
+.display,
+.h2,
+.step-title,
+.step-body,
+.why-list p,
+.quote,
+.card p,
+.note {
+  word-break: auto-phrase;
+  text-wrap: pretty;
+}
 .note {
   font-size: 0.85rem;
   color: var(--ink-soft);
