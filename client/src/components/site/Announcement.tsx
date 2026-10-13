@@ -12,7 +12,6 @@ interface Item {
   level: Level;
   title: string;
   body: string;
-  url?: string;
   starts_at?: string;
   ends_at?: string;
 }
@@ -50,7 +49,6 @@ function normalize(data: unknown): Item | null {
       level: r.level === "incident" ? "incident" : "info",
       title,
       body,
-      url: typeof r.url === "string" ? r.url : undefined,
     };
   }
   return null;
@@ -74,7 +72,6 @@ function previewItem(): Item | null {
     level: incident ? "incident" : "info",
     title: incident ? "現在、写真の読み込みに時間がかかっています" : "10/20 23:00〜24:00 にメンテナンスを行います",
     body: incident ? "復旧作業中です。アプリを閉じずにお待ちください。" : "この時間はアプリが使えないことがあります。",
-    url: "/",
   };
 }
 
@@ -140,11 +137,6 @@ export default function Announcement() {
           <p className="ann-text">
             {item.title && <strong>{item.title}</strong>}
             {item.body && <span>{item.body}</span>}
-            {item.url && (
-              <a href={item.url} className="ann-link">
-                くわしく
-              </a>
-            )}
           </p>
           <button type="button" className="ann-close" onClick={dismiss} aria-label="お知らせを閉じる">
             ×

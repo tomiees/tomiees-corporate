@@ -288,10 +288,6 @@ button {
 .ann-text strong {
   font-weight: 700;
 }
-.ann-link {
-  font-weight: 700;
-  text-underline-offset: 3px;
-}
 .ann-close {
   flex: none;
   width: 36px;
