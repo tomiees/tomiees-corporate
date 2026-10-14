@@ -29,6 +29,8 @@ Cache-Control: max-age=60
       "level": "incident",
       "title": "現在、写真の読み込みに時間がかかっています",
       "body": "復旧作業中です。アプリを閉じずにお待ちください。",
+      "title_en": "Photos are taking longer to load right now",
+      "body_en": "We're working on a fix. Please keep the app open.",
       "ends_at": "2026-10-13T00:00:00+09:00"
     }
   ]
@@ -36,7 +38,8 @@ Cache-Control: max-age=60
 ```
 
 - お知らせが無いときは `{ "items": [] }`（または `204 No Content` / `null`）を返す
-- **必須は `title` と `body` だけ**。`items` を省いて `{ "title": "...", "body": "..." }` を
+- `title_en` / `body_en`: アプリで英語を選んでいる人向け（HP は読まない。HP は日本語だけ出し、翻訳はブラウザに任せる）
+- **HP にとって必須は `title` と `body` だけ**。`items` を省いて `{ "title": "...", "body": "..." }` を
   そのまま返してもよい（配列・単体どちらも受け付ける）
 - `level`: `"info"`（既定・黄色の帯・閉じると次回から出ない）／
   `"incident"`（ピンクの帯・閉じても次回訪問時にまた出る）
